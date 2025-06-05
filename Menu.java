@@ -1,24 +1,30 @@
 import java.util.Scanner;
+import utilidades.Metodos;
+import utilidades.Validaciones;
+import utilidades.BaseDatos;
 
 public class Menu {
     private Scanner sc;
+    private Validaciones validaciones;
     private Metodos metodos;
 
     public Menu(Scanner sc) {
         this.sc = sc;
-        this.metodos = new Metodos(sc);
+        this.validaciones = new Validaciones(this.sc);
+        this.metodos = new Metodos(this.validaciones);
+        BaseDatos.cargarDatos(); // Cargar datos al iniciar
     }
 
-    public void MenuPrincipal() {
+    public void menuPrincipal() {
         int opcion;
         do {
             System.out.println("\n GESTIÓN DE PRÉSTAMOS EQUIPOS SAN JUAN DE DIOS  ");
             System.out.println("1. Estudiantes de Ingeniería");
             System.out.println("2. Estudiantes de Diseño");
-            System.out.println("3. Inventario Total");
+            System.out.println("3. Imprimir Inventario Total");
             System.out.println("4. Salir");
-            System.out.print("Seleccione una opción: ");
-            opcion = Integer.parseInt(sc.nextLine());
+
+            opcion = validaciones.leerEntero("Seleccione una opción: ", 1, 4);
 
             switch (opcion) {
                 case 1:
@@ -31,6 +37,7 @@ public class Menu {
                     metodos.imprimirInventarioTotal();
                     break;
                 case 4:
+                    BaseDatos.guardarDatos(); // Guardar datos al salir
                     System.out.println("Saliendo del programa...");
                     break;
                 default:
@@ -49,8 +56,8 @@ public class Menu {
             System.out.println("3. Devolución de equipo");
             System.out.println("4. Buscar equipo");
             System.out.println("5. Volver al menú principal");
-            System.out.print("Seleccione una opción: ");
-            opcion = Integer.parseInt(sc.nextLine());
+
+            opcion = validaciones.leerEntero("Seleccione una opción: ", 1, 5);
 
             switch (opcion) {
                 case 1:
@@ -60,7 +67,7 @@ public class Menu {
                     metodos.modificarPrestamoIngeniero();
                     break;
                 case 3:
-                    metodos.devolverPrestamoIngeniero();
+                    metodos.devolverEquipoIngeniero();
                     break;
                 case 4:
                     metodos.buscarEquipoIngeniero();
@@ -83,8 +90,8 @@ public class Menu {
             System.out.println("3. Devolución de equipo");
             System.out.println("4. Buscar equipo");
             System.out.println("5. Volver al menú principal");
-            System.out.print("Seleccione una opción: ");
-            opcion = Integer.parseInt(sc.nextLine());
+
+            opcion = validaciones.leerEntero("Seleccione una opción: ", 1, 5);
 
             switch (opcion) {
                 case 1:
